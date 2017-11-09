@@ -470,7 +470,7 @@ def test_tender_data_esco(params):
     #     "other"
     #     )
     # data['fundingKind'] = fake.random_element(funding_variants)
-    data['fundingKind'] = "other"
+    data['fundingKind'] = "budget"
     data['NBUdiscountRate'] = float(round(random.uniform(0, 0.99), 3))
     del data["value"]
     # del data['submissionMethodDetails']
