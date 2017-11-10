@@ -202,7 +202,7 @@ ${round3_bidder2}  id=stage-8
   ${url}=  Run Keyword If  '${username}' == '${viewer}'  Run As  ${viewer}  Отримати посилання на аукціон для глядача  ${TENDER['TENDER_UAID']}  ${TENDER['LOT_ID']}
   ...      ELSE  Run As  ${username}  Отримати посилання на аукціон для учасника  ${TENDER['TENDER_UAID']}  ${TENDER['LOT_ID']}
   Should Be True  '${url}'
-  Should Match Regexp  ${url}  ^https?:\/\/auction(?:-sandbox)?\.openprocurement\.org\/tenders\/([0-9A-Fa-f]{32})
+  Should Match Regexp  ${url}  ^https?:\/\/auction(?:-sandbox)?\.prozorro\.openprocurement\.auction\/esco-tenders\/([0-9A-Fa-f]{32})
   Log  URL: ${url}
   [return]  ${url}
 
@@ -330,7 +330,7 @@ ${round3_bidder2}  id=stage-8
 
 
 Спробувати вказати невалідний відсоток щорічних платежів
-    Поставити ставку еско  2  123  79   Percentage value must be between 80.0 and 100
+  Поставити ставку еско  2  123  79   Percentage value must be between 80.0 and 100
 
 
 Поставити мінімально можливу ставку
@@ -345,7 +345,6 @@ ${round3_bidder2}  id=stage-8
   Input Text  id=yearly-payments-percentage  ${percent}
   sleep  1s
   Capture Page Screenshot
-  Highlight Elements With Text On Time    Зробити заявку
   Click Element                id=place-bid-button
   Run Keyword If  "${msg}" == "css=input:invalid"           Wait Until Element Is Visible  ${msg}
   ...    ELSE     Wait Until Page Contains  ${msg}  10s
@@ -355,10 +354,8 @@ ${round3_bidder2}  id=stage-8
 
 
 Відмінитити ставку
-  Highlight Elements With Text On Time   Відмінити заявку
   Click Element                id=cancel-bid-button
   Wait Until Page Contains     Заявку відмінено      10s
-  Highlight Elements With Text On Time    Заявку відмінено
   Capture Page Screenshot
 
 
@@ -370,11 +367,11 @@ ${round3_bidder2}  id=stage-8
 
 
 Перевірити чи ставка була прийнята
-    [Arguments]    ${locator}
+  [Arguments]    ${locator}
   Element should contain  ${locator}  ${current_VPN}
 
 
 Перевірити чи ставка була відмінена
-    [Arguments]    ${locator}
+  [Arguments]    ${locator}
   ${amount}=  Get text  ${round2_bidder2}
   Element should contain  ${locator}  ${amount}
